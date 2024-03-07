@@ -1,24 +1,27 @@
 FROM debian:bullseye
 
-RUN apt update && apt upgrade && apt install mariadb-server -y
+RUN apt-get update && apt-get upgrade && apt-get install mariadb-server -y
 
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY conf/mariadb.conf /etc/mysql/mariadb.cnf.d/50-server.cnf
 
-# CMD mariadb.sh
-#COPY ./tools/mariadb.sh /
+ARG DATABASE
+ARG USER
+ARG ROOT_PASSWORD
+ARG PASSWORD
 
-#RUN chmod +x /mariadb.sh
-#ENTRYPOINT ["/mariadb.sh"]
-# ADD tools/mariadb.sh /root/mariadb.sh
-#CMD ["mariadb_init.sh"]
-#CMD [ "mariadb", "-g", "daemon off;"]
+ENV DATABASE=mariadb
+ENV USER=rrebois
+ENV ROOT_PASSWORD=inceptionroot
+ENV PASSWORD=inception
 
+RUN service mariadb start \
+&& mariadb -e "CREATE DATABASE IF NOT EXISTS ${DATABASE};" \
+&& mariadb -e "CREATE USER IF NOT EXISTS '${USER}'@'localhost' IDENTIFIED BY '${PASSWORD}';" \
+&& mariadb -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${USER}'@'%' IDENTIFIED BY '${PASSWORD}';" \
+# && mariadb -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${ROOT_PASSWORD}';" \
+&& mariadb -e "FLUSH PRIVILEGES;"
+# && mariadb-admin -u root -p$ROOT_PASSWORD shutdown
+# RUN exec mysql_safe
 
-RUN service mysql start;
-RUN mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
-RUN mysql -e "CREATE USER IF NOT EXITS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';"
-RUN mysql -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${SQL_USER}\`@'%' IDENTIFIED BY '${SQL_PASSWORD}';"
-RUN mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
-RUN mysql -e "FLUSH PRIVILEGED;"
-RUN mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown
-RUN exec mysql_safe
+CMD ["mariadb"]
+# CMD ["mariadb", "bind-address=0.0.0.0"]
