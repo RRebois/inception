@@ -4,7 +4,7 @@ FROM debian:bullseye
 #docker run -it nginx
 
 # update packages and install nginx on container
-RUN apt update && apt upgrade && apt install nginx -y
+RUN apt-get update && apt-get upgrade && apt-get install nginx -y
 
 # install openssl
 RUN mkdir -p /etc/nginx/ssl && apt install openssl -y

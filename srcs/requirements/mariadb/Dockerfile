@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade && apt-get install mariadb-server -y
 
-COPY conf/mariadb.conf /etc/mysql/mariadb.cnf.d/50-server.cnf
+# COPY conf/mariadb.conf /etc/mysql/mariadb.cnf.d/50-server.cnf
 
 ARG DATABASE
 ARG USER
@@ -23,5 +23,5 @@ RUN service mariadb start \
 # && mariadb-admin -u root -p$ROOT_PASSWORD shutdown
 # RUN exec mysql_safe
 
-CMD ["mysqld_safe", "bind-address=0.0.0.0"]
-# CMD ["mariadb", "bind-address=0.0.0.0"]
+# CMD ["mysqld_safe"]
+CMD ["mariadbd", "--bind-address=0.0.0.0"]
