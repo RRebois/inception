@@ -10,10 +10,12 @@ RUN mkdir -p /var/www/html/wordpress/
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 && chmod +x wp-cli.phar \
-&& mv wp-cli.phar /usr/local/bin/wp
+&& mv wp-cli.phar /usr/bin/wp
 
-COPY conf/config.sh /conf/config.sh
-RUN chmod +x /conf/config.sh
-ENTRYPOINT ["/conf/config.sh"]
+RUN chmod +x ./usr/bin/wp
 
-CMD ["wordpress"]
+COPY conf/config.sh /var/www/html/
+RUN chmod +x /var/www/html/config.sh
+CMD ["/var/www/html/config.sh"]
+
+# CMD ["wordpress"]
