@@ -9,11 +9,6 @@ ARG USER
 ARG ROOT_PASSWORD
 ARG PASSWORD
 
-ENV DATABASE=mariadb
-ENV USER=rrebois
-ENV ROOT_PASSWORD=inceptionroot
-ENV PASSWORD=inception
-
 RUN service mariadb start \
 && mariadb -e "CREATE DATABASE IF NOT EXISTS ${DATABASE};" \
 && mariadb -e "CREATE USER IF NOT EXISTS '${USER}'@'localhost' IDENTIFIED BY '${PASSWORD}';" \
