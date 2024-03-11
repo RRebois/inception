@@ -1,5 +1,5 @@
 #! /bin/bash
-# sleep 10
+sleep 10
 if [ ! -f $/var/www/html/wordpress/wp-config.php ]
 then
     cd /var/www/html/wordpress/  
