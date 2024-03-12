@@ -2,17 +2,10 @@ FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade && apt-get install mariadb-server -y
 
-# COPY conf/mariadb.conf /etc/mysql/mariadb.cnf.d/50-server.cnf
-
 ARG DATABASE
 ARG USER
 ARG ROOT_PASSWORD
 ARG PASSWORD
-
-# ENV DATABASE=mariadb
-# ENV USER=rolando
-# ENV ROOT_PASSWORD=inceptionroot
-# ENV PASSWORD=inception
 
 RUN service mariadb start \
 && mariadb -e "CREATE DATABASE IF NOT EXISTS ${DATABASE};" \
