@@ -2,8 +2,6 @@ FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade && apt-get install mariadb-server -y
 
-# COPY conf/mariadb.conf /etc/mysql/mariadb.cnf.d/50-server.cnf
-
 ARG DATABASE
 ARG USER
 ARG ROOT_PASSWORD

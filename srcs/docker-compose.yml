@@ -16,7 +16,7 @@ services:
     env_file: .env
     volumes:
       - mariadb:/var/lib/mysql
-    restart: on-failure
+    restart: unless-stopped
     expose:
       - "3306"
   nginx:
@@ -48,6 +48,7 @@ services:
         - DATABASE=${DATABASE}
         - USER=${USER}
         - PASSWORD=${PASSWORD}
+        - HOST={HOST}
         - URL=${URL}
         - TITLE=${TITLE}
         - ADMIN={ADMIN}
