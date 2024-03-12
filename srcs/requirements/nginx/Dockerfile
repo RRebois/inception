@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 # update packages and install nginx on container
-RUN apt-get update && apt-get upgrade && apt-get install nginx -y
+RUN apt-get update -y && apt-get upgrade -y && apt-get install nginx -y
 
 # install openssl
 RUN mkdir -p /etc/nginx/ssl && apt install openssl -y
@@ -19,8 +19,8 @@ RUN openssl req -x509 -nodes -out /etc/nginx/ssl/rrebois.crt -keyout \
 # remplace le fichier config de nginx par le notre
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-# RUN chmod 755 /var/www/html
 # # change owner && -R modifie de maniere recursive l'appartenance des fichiers et leur contenu
+# RUN chmod 755 /var/www/html
 # RUN chown -R www-data:www-data /var/www/html
 
 # CMD ["executable", "param1", "param1"] (exec form)

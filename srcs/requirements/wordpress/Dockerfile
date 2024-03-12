@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get upgrade && apt-get install wget -y
+RUN apt-get update -y && apt-get upgrade -y && apt-get install wget -y
 
 RUN apt-get install -y php php-fpm php-mysql mariadb-client
 
