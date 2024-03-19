@@ -6,6 +6,7 @@ RUN apt-get install -y php php-fpm php-mysql mariadb-client
 
 RUN mkdir -p /var/www/html/wordpress/
 
+#wp-cli allows to auto config wp init pages 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 && chmod +x wp-cli.phar \
 && mv wp-cli.phar /usr/bin/wp

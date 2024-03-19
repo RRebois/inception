@@ -1,4 +1,4 @@
-NAME	=	up
+NAME		=	up
 
 all			:	${NAME}
 
@@ -12,7 +12,7 @@ down		:
 restart		:
 				docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env restart
 
-stop-all	:
+stop	:
 				${MAKE} down
 				- docker stop $$(docker ps -qa)
 				- docker rm $$(docker ps -qa)
@@ -21,4 +21,8 @@ stop-all	:
 				- docker network rm $$(docker network ls -q) 2>/dev/null
 				sudo rm -rf /home/rrebois/data/mariadb /home/rrebois/data/wordpress
 
-.PHONY		:	all stop-all down restart
+re		:
+				${MAKE} stop
+				${MAKE} all
+
+.PHONY		:	all stop down restart re

@@ -6,9 +6,9 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install nginx -y
 # install openssl
 RUN mkdir -p /etc/nginx/ssl && apt install openssl -y
 
-# Creation de la clef et du certificat TSL (sans mdp -nodes)
-# req -x509 outpus certificate instead of a certificate request
-# C country/ST state or province/ L locality/ O organization name/ OU organization unit name/ CN common name
+# Creation of the key and TSL certificate (without pwd -nodes)
+# req -x509 outputs certificate instead of a certificate request
+# C country/ST state or province/ L locality/ O organization name/ OU organization unit name/ CN common name/ UID user id
 RUN openssl req -x509 -nodes -newkey rsa:2048 -out /etc/nginx/ssl/rrebois.crt -keyout \
     /etc/nginx/ssl/rrebois.key \
     -subj "/C=FR/ST=RA/L=Lyon/O=42/OU=42/CN=rrebois.42.fr/UID=rrebois"
