@@ -13,7 +13,7 @@ RUN openssl req -x509 -nodes -newkey rsa:2048 -out /etc/nginx/ssl/rrebois.crt -k
     /etc/nginx/ssl/rrebois.key \
     -subj "/C=FR/ST=RA/L=Lyon/O=42/OU=42/CN=rrebois.42.fr/UID=rrebois"
 
-COPY conf/nginx.conf /etc/nginx/sites-available/rrebois.42.fr.conf
+COPY ./conf/nginx.conf /etc/nginx/sites-available/rrebois.42.fr.conf
 
 RUN echo "include /etc/nginx/sites-available/rrebois.42.fr.conf;" > /etc/nginx/sites-enabled/rrebois.42.fr.conf;
 
